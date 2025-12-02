@@ -30,7 +30,17 @@ const router = createRouter({
           name: 'usuarios',
           component: () => import('@/components/usuarios/UsuarioView.vue'),
           meta: { title: 'Usuarios' },
-        }
+        },
+        {
+          path: '/usuarios/crear',
+          name: 'crearUsuario',
+          component: () => import('@/components/usuarios/UserCreateView.vue'),
+          meta: { title: 'Crear Usuario' },
+        },
+        { path: '/usuarios/editar/:id', 
+           name: 'UsuariosEditar',
+           component: () => import('@/components/usuarios/UserEditView.vue')
+          },
       ]
     },
     {

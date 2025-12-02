@@ -440,3 +440,183 @@ header nav button.btn-active {
 .error-box button:hover {
   background-color: #501417;
 }
+
+/* ----------- Crear Usuario ----------- */
+
+.crear-usuario-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-primary-content);
+}
+
+.subtitulo {
+  opacity: 0.7;
+}
+
+.btn-volver {
+  background-color: var(--color-base-200);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-box);
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+.btn-volver:hover {
+  background-color: var(--color-accent);
+}
+
+/* Mensajes */
+.msg-exito,
+.msg-error {
+  padding: 1rem;
+  border-radius: var(--radius-box);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.msg-exito {
+  background-color: #c7f7d4;
+  color: #0b5223;
+}
+
+.msg-error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.msg-close {
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.form-card {
+  background-color: var(--color-base-100);
+  border: 1px solid var(--color-base-300);
+  border-radius: var(--radius-box);
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field input,
+.form-field select {
+  padding: 0.7rem;
+  border-radius: var(--radius-field);
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-base-100);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.req {
+  color: red;
+}
+
+.field-hint {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* Info box */
+.info-box {
+  background-color: var(--color-base-200);
+  padding: 1rem;
+  border-radius: var(--radius-field);
+  border: 1px solid var(--color-base-300);
+}
+
+.info-box h3 {
+  margin-bottom: 0.5rem;
+}
+
+/* Acciones */
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-base-300);
+}
+
+.btn-cancelar {
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-box);
+  background-color: var(--color-base-200);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-cancelar:hover {
+  background-color: var(--color-accent);
+}
+
+.btn-crear {
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-box);
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-crear:hover {
+  background-color: var(--color-accent);
+}
+
+.loader {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid currentColor;
+  border-bottom-color: transparent;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

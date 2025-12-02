@@ -21,6 +21,17 @@ const pagination = computed(() => usersStore.pagination)
 const loading = computed(() => usersStore.loading)
 const error = computed(() => usersStore.error)
 
+// Función para formatear fecha dd-mm-yyyy
+const formatDate = (dateStr: string | null) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+}
+
 // Cargar usuarios al montar
 onMounted(() => {
   loadUsers()
@@ -65,58 +76,57 @@ const clearError = () => {
 </script>
 
 <template>
-    <!-- Error -->
-    <div v-if="error" class="error-box">
-      <p>{{ error }}</p>
-      <button @click="clearError">Cerrar</button>
+  <!-- Error -->
+  <div v-if="error" class="error-box">
+    <p>{{ error }}</p>
+    <button @click="clearError">Cerrar</button>
+  </div>
+
+  <!-- Cargando -->
+  <div v-if="loading">Cargando usuarios...</div>
+
+  <!-- Tabla de usuarios -->
+  <div v-if="!loading && users.length">
+    <button @click="goToCreateUser" class="btn-primary">Crear Usuario</button>
+
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fecha Nacimiento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="u in users" :key="u.id">
+          <td>{{ u.id }}</td>
+          <td>{{ u.nombre }} {{ u.apellido }}</td>
+          <td>{{ u.email }}</td>
+          <td>{{ u.telefono }}</td>
+          <td>{{ formatDate(u.fecha_nacimiento) }}</td>
+          <td>
+            <button @click="goToEditUser(u.id)" class="btn-edit">Editar</button>
+            <button @click="deleteUser(u.id)" class="btn-delete">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div v-if="pagination.totalPages > 1" class="pagination">
+      <button
+        v-for="page in pagination.totalPages"
+        :key="page"
+        @click="handlePageChange(page)"
+        :disabled="currentPage === page"
+      >
+        {{ page }}
+      </button>
     </div>
+  </div>
 
-    <!-- Cargando -->
-    <div v-if="loading">Cargando usuarios...</div>
-
-    <!-- Tabla de usuarios -->
-    <div v-if="!loading && users.length">
-      <button @click="goToCreateUser" class="btn-primary">Crear Usuario</button>
-
-      <table class="users-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Fecha Nacimiento</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="u in users" :key="u.id">
-            <td>{{ u.id }}</td>
-            <td>{{ u.nombre }} {{ u.apellido }}</td>
-            <td>{{ u.email }}</td>
-            <td>{{ u.telefono }}</td>
-            <td>{{ u.fecha_nacimiento }}</td>
-            <td>
-              <button @click="goToEditUser(u.id)" class="btn-edit">Editar</button>
-              <button @click="deleteUser(u.id)" class="btn-delete">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <!-- Paginación -->
-      <div v-if="pagination.totalPages > 1" class="pagination">
-        <button
-          v-for="page in pagination.totalPages"
-          :key="page"
-          @click="handlePageChange(page)"
-          :disabled="currentPage === page"
-        >
-          {{ page }}
-        </button>
-      </div>
-    </div>
-
-    <div v-else-if="!loading">No hay usuarios disponibles.</div>
+  <div v-else-if="!loading">No hay usuarios disponibles.</div>
 </template>
-
