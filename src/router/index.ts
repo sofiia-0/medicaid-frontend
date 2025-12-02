@@ -14,6 +14,15 @@ const router = createRouter({
       },
     },
     {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/components/dashboard/DashboardView.vue'),
+      meta: {
+        title: 'Dashboard',
+        layout: 'default', // Asumiendo que tienes un layout por defecto
+      },
+    },
+    {
       path: '/:pathMatch(.*)*',
       redirect: '/login', // Todo lo demás redirige a login
     },
