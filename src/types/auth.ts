@@ -8,7 +8,8 @@ export interface Usuario {
   nombre: string
   apellido: string
   email: string
-  tipo: string
+  telefono: string
+  fecha_nacimiento: Date
 }
 
 export interface AuthResponse {
