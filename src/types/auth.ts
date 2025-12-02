@@ -12,6 +12,13 @@ export interface Usuario {
   fecha_nacimiento: Date
 }
 
+export interface Medicamento {
+  id: number
+  nombre: string
+  tipo: string
+  dosis_default: string
+}
+
 export interface AuthResponse {
   token: string
   usuario: Usuario
