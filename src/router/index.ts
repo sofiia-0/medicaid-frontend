@@ -1,3 +1,4 @@
+import AppLayout from '@/components/layout/AppLayout.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Solo importamos el login
@@ -14,17 +15,37 @@ const router = createRouter({
       },
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/components/dashboard/DashboardView.vue'),
-      meta: {
-        title: 'Dashboard',
-        layout: 'default', // Asumiendo que tienes un layout por defecto
-      },
+      path: '/',
+      component: AppLayout,
+      meta: { requiresAuth: true },
+      children: [
+         {
+          path: '',
+          name: 'dashboard',
+          component: () => import('@/components/dashboard/DashboardView.vue'),
+          meta: { title: 'Dashboard' },
+        },
+        {
+          path: 'usuarios',
+          name: 'usuarios',
+          component: () => import('@/components/usuarios/UsuarioView.vue'),
+          meta: { title: 'Usuarios' },
+        },
+        {
+          path: '/usuarios/crear',
+          name: 'crearUsuario',
+          component: () => import('@/components/usuarios/UserCreateView.vue'),
+          meta: { title: 'Crear Usuario' },
+        },
+        { path: '/usuarios/editar/:id', 
+           name: 'UsuariosEditar',
+           component: () => import('@/components/usuarios/UserEditView.vue')
+          },
+      ]
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/login', // Todo lo demás redirige a login
+      redirect: '/', // Todo lo demás redirige a login
     },
   ],
 })
