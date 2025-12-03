@@ -55,6 +55,12 @@ const router = createRouter({
           meta: { title: 'Crear Medicamento' },
         },
         {
+          path: '/medicamentos/editar/:id',
+          name: 'editarMedicamento',
+          component: () => import('@/components/medicamento/UpdateMedicamentoView.vue'),
+          meta: { title: 'Editar Medicamento' },
+        },
+        {
   path: "/tratamientos",
   component: () => import("@/tratamiento/tratamientoList.vue")
 },
