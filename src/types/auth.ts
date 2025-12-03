@@ -19,6 +19,23 @@ export interface Medicamento {
   dosis_default: string
 }
 
+export interface TratamientoMedicamento {
+  medicamento_id: number
+  dosis: string
+  frecuencia_horas: number
+}
+
+export interface Tratamiento {
+  id: number
+  usuario_id: number
+  frecuencia_horas: number
+  fecha_inicio: string
+  fecha_fin: string | null
+  hora_inicio: string
+  notas: string | null
+  medicamentos: TratamientoMedicamento[]
+}
+
 export interface AuthResponse {
   token: string
   usuario: Usuario
