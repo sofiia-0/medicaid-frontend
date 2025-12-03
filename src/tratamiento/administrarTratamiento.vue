@@ -34,7 +34,7 @@ const form = ref({
 onMounted(async () => {
   await usuarioStore.fetchUsers(1, 1000)
   usuarioStore.users.sort((a, b) => a.nombre.localeCompare(b.nombre))
-  
+
   await medicamentoStore.fetchMedicamentos(1, 1000)
 
   if (id) {
@@ -47,12 +47,12 @@ onMounted(async () => {
       hora_inicio: data.hora_inicio,
       notas: data.notas ?? "",
       medicamentos: data.medicamentos
-        .map((m) => ({
-          medicamento_id: m.id ?? null,
-          dosis: m.pivot?.dosis ?? "",
-          frecuencia_horas: m.pivot?.frecuencia_horas ?? data.frecuencia_horas
-        }))
-        .filter(m => m.medicamento_id !== null)
+      .map((m) => ({
+        medicamento_id: m.id ?? null,
+        dosis: m.dosis ?? "",
+        frecuencia_horas: m.frecuencia_horas ?? data.frecuencia_horas
+      }))
+      .filter(m => m.medicamento_id !== null)
     }
   }
 })
@@ -91,6 +91,7 @@ const buildPayload = () => {
     medicamentos: medicamentosValidos
   }
 }
+
 
 // Guardar tratamiento
 const save = async () => {

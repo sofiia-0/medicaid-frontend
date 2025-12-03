@@ -25,11 +25,11 @@ const deleteTratamiento = async (id: number) => {
   if (!confirm("¿Eliminar este tratamiento?")) return
 
   await store.deleteTratamiento(id)
-  
+
   if (store.tratamientos.length === 1 && currentPage.value > 1) {
     currentPage.value--
   }
-  
+
   store.fetchTratamientos(currentPage.value, perPage)
 }
 </script>
@@ -40,7 +40,10 @@ const deleteTratamiento = async (id: number) => {
 
     <div v-if="store.loading">Cargando tratamientos...</div>
 
-    <table v-if="!store.loading && store.tratamientos.length" class="users-table">
+    <table
+      v-if="!store.loading && store.tratamientos.length"
+      class="users-table"
+    >
       <thead>
         <tr>
           <th>ID</th>
@@ -54,27 +57,45 @@ const deleteTratamiento = async (id: number) => {
       <tbody>
         <tr v-for="t in store.tratamientos" :key="t.id">
           <td>{{ t.id }}</td>
-          <td>{{ t.usuario?.nombre ?? ("ID " + t.usuario_id) }}</td>
-          <td>{{ t.fecha_inicio }} {{ t.hora_inicio }}</td>
+
+          <td>{{ t.usuario?.nombre ?? ('ID ' + t.usuario_id) }}</td>
+
+          <!-- Mostrar fecha + solo hora (HH:MM) -->
+          <td>
+            {{ t.fecha_inicio }}
+            {{ t.hora_inicio ? t.hora_inicio.slice(11, 16) : '' }}
+          </td>
+
           <td>
             <ul>
               <li
                 v-for="m in t.medicamentos"
-                :key="m.medicamento_id"
+                :key="m.id"
               >
-                {{ m.dosis }} ({{ m.frecuencia_horas }}h)
+                <!-- Mostrar nombre + dosis + frecuencia -->
+                {{ m.nombre }}
+                <span v-if="m.dosis"> - {{ m.dosis }}</span>
+                ({{ m.frecuencia_horas }}h)
               </li>
             </ul>
           </td>
 
           <td>
             <button class="btn-edit" @click="goToEdit(t.id)">Editar</button>
-            <button class="btn-delete" @click="deleteTratamiento(t.id)">Eliminar</button>
+            <button class="btn-delete" @click="deleteTratamiento(t.id)">
+              Eliminar
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
 
+    <!-- Mensaje cuando NO hay tratamientos -->
+    <div v-if="!store.loading && !store.tratamientos.length">
+      No hay tratamientos.
+    </div>
+
+    <!-- Paginación -->
     <div v-if="store.pagination.totalPages > 1" class="pagination">
       <button
         v-for="page in store.pagination.totalPages"
@@ -85,7 +106,5 @@ const deleteTratamiento = async (id: number) => {
         {{ page }}
       </button>
     </div>
-
-    <div v-else-if="!store.loading">No hay tratamientos.</div>
   </div>
 </template>
