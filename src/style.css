@@ -236,7 +236,7 @@ header {
 header h1 {
   font-weight: bold;
   font-size: 6rem;
-  color: #C6CEBE; /* Verde para "Medic-aid" */
+  color: #000000; /* Verde para "Medic-aid" */
 }
 
 /* Nav buttons */
